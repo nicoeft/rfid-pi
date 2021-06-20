@@ -12,4 +12,4 @@ class Provider(Base):
     balance = Column(Float, server_default='0', nullable=False)
     payment_amount = Column(Float, server_default='0', nullable=False)
     is_active = Column(Boolean, default=False)
-    transactions = relationship('Transaction')
+    transactions = relationship('transaction',backref='provider.id')
