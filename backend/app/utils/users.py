@@ -22,6 +22,7 @@ def handle_event(rfid_uuid, provider_id) -> (str, bool):
     if user.is_admin:
         provider.balance += provider.payment_amount
         msg = f"Deposited: {provider.payment_amount} - Total is:{provider.balance}"
+        session.commit()
         return msg, True
     if user.balance >= provider.payment_amount:
         msg = do_transaction(provider, session, user)
