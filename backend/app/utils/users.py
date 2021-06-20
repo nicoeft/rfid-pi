@@ -15,7 +15,7 @@ def handle_event(rfid_uuid, provider_id) -> (str, bool):
         provider.is_active = False
         session.commit()
         return error_msg, False
-    user = session.query(User).filter_by(rfid_uuid=rfid_uuid)
+    user = session.query(User).filter_by(rfid_uuid=rfid_uuid).first()
     if not user:
         error_msg = f"User doesn't exist"
         return error_msg, False

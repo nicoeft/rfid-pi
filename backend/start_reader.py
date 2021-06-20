@@ -52,16 +52,16 @@ while continue_reading:
         
         #Configure LED Output Pin
         GREEN_LED = 18
-        RED_LED = 17
-        for led in [GREEN_LED,RED_LED]:
-            GPIO.setup(led, GPIO.OUT)
-            GPIO.output(led, GPIO.LOW)
-
+        
+        GPIO.setup(GREEN_LED,GPIO.OUT)
+        GPIO.output(GREEN_LED,GPIO.LOW)
+        
         msg,success = handle_event(uuid_str, 1)
-        led = GREEN_LED if success else RED_LED
+        led = GREEN_LED
+        
         print(msg)
         GPIO.output(led, GPIO.HIGH)  # Turn on LED
-        time.sleep(1)  # Wait 5 Seconds
+        time.sleep(2)  # Wait 2 Seconds
         GPIO.output(led, GPIO.LOW)  # Turn off LED
 
         
