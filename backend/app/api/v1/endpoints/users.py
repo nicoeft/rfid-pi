@@ -1,10 +1,9 @@
 from typing import Any, List
 from fastapi import APIRouter, Depends
-import sys
-from os import path
 
-sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from api import deps
+from app.api import deps
+from app.models.user import User
+
 
 
 router = APIRouter()

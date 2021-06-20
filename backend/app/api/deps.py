@@ -1,8 +1,5 @@
 from typing import Generator
-import sys
-from os import path
-sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from db.session import SessionLocal
+from app.db.session import SessionLocal
 
 
 def get_db() -> Generator:

@@ -2,8 +2,8 @@ from typing import Any, List
 
 from fastapi import APIRouter, Depends, Body
 
-from api import deps
-
+from app.api import deps
+from app.models.user import User
 
 router = APIRouter()
 
