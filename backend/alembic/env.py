@@ -19,7 +19,7 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-from app.db.base_class import Base
+from app.db.base import Base
 target_metadata = Base.metadata
 
 # other values from the core, defined by the needs of env.py,
