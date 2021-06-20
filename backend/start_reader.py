@@ -42,13 +42,11 @@ while continue_reading:
     if status == MIFAREReader.MI_OK:
  
         # Print UID
-        print ("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])+','+str(uid[4]))  
-        # This is the default key for authentication
-        key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
+        print ("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])+','+str(uid[4]))
         
         # Select the scanned tag
         MIFAREReader.MFRC522_SelectTag(uid)
-        
+
         #ENTER Your Card UID here
         my_uid = [61,84,4,114,31]
         
@@ -59,20 +57,12 @@ while continue_reading:
         
         #Check to see if card UID read matches your card UID
         if uid == my_uid:                #Open the Doggy Door if matching UIDs
-            print("Access Granted")
+            print("Admin Access Granted")
             GPIO.output(LED, GPIO.HIGH)  #Turn on LED
             time.sleep(5)                #Wait 5 Seconds
             GPIO.output(LED, GPIO.LOW)   #Turn off LED
             
         else:                            #Don't open if UIDs don't match
-            print("Access Denied, YOU SHALL NOT PASS!")
+            print("User")
         
-##        # Authenticate
-##        status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-##
-##        # Check if authenticated
-##        if status == MIFAREReader.MI_OK:
-##            MIFAREReader.MFRC522_Read(8)
-##            MIFAREReader.MFRC522_StopCrypto1()
-##        else:
-##            print "Authentication error"
+

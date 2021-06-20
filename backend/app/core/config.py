@@ -1,1 +1,4 @@
 API_V1_STR= "/api/v1"
+SQLALCHEMY_DATABASE_URI="mysql+mysqldb://admin:12345@localhost:3306/prod"
+AMOUNT_USER_PAYMENT=1
+AMOUNT_ADMIN_DEPOSIT=5

@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, Column, Integer, String, Float
+from sqlalchemy import DateTime, Column, Integer, String, Float, Boolean
 from sqlalchemy.sql import func
 
 from app.db.base_class import Base
@@ -10,3 +10,4 @@ class User(Base):
     username = Column(String(32), index=True)
     password = Column(String(32), nullable=False)
     balance = Column(Float, server_default='0', nullable=False)
+    is_admin = Column(Boolean,default=True)
