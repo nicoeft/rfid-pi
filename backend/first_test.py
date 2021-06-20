@@ -1,10 +1,10 @@
-from app.utils.users import handle_user, deposit
+from app.utils.users import handle_user
 
 USER_WITH_BALANCE = 1
 USER_WITHOUT_BALANCE = 2
 USER_NOT_FOUND = 555
+PROVIDER_WITH_BALANCE = 1
 
-handle_user(USER_WITH_BALANCE)
-handle_user(USER_WITHOUT_BALANCE)
-handle_user(USER_NOT_FOUND)
-deposit()
+handle_user(USER_WITH_BALANCE, PROVIDER_WITH_BALANCE)
+handle_user(USER_WITHOUT_BALANCE, PROVIDER_WITH_BALANCE)
+handle_user(USER_NOT_FOUND, PROVIDER_WITH_BALANCE)

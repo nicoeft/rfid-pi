@@ -32,6 +32,3 @@ def handle_user(user_id, provider_id)->(str, bool):
         return msg, True
     error_msg= f"Insufficient balance: {user.balance} , minimum is {provider.payment_amount}"
     return error_msg, False
-
-
-def deposit(provider: Provider):
