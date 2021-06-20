@@ -5,7 +5,9 @@ import RPi.GPIO as GPIO
 from mfrc522 import MFRC522
 import signal
 import time
- 
+
+from app.utils.users import handle_event
+
 continue_reading = True
  
 # Capture SIGINT for cleanup when the script is aborted
@@ -40,29 +42,27 @@ while continue_reading:
  
     # If we have the UID, continue
     if status == MIFAREReader.MI_OK:
- 
+
+        uuid_str = f"{uid[0]}-{uid[1]}-{uid[2]}-{uid[3]}-{uid[4]}"
         # Print UID
-        print ("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])+','+str(uid[4]))
+        print(f"Card read UID: {uuid_str}")
         
         # Select the scanned tag
         MIFAREReader.MFRC522_SelectTag(uid)
-
-        #ENTER Your Card UID here
-        my_uid = [61,84,4,114,31]
         
         #Configure LED Output Pin
-        LED = 18
-        GPIO.setup(LED, GPIO.OUT)
-        GPIO.output(LED, GPIO.LOW)
-        
-        #Check to see if card UID read matches your card UID
-        if uid == my_uid:                #Open the Doggy Door if matching UIDs
-            print("Admin Access Granted")
-            GPIO.output(LED, GPIO.HIGH)  #Turn on LED
-            time.sleep(5)                #Wait 5 Seconds
-            GPIO.output(LED, GPIO.LOW)   #Turn off LED
-            
-        else:                            #Don't open if UIDs don't match
-            print("User")
+        GREEN_LED = 18
+        RED_LED = 17
+        for led in [GREEN_LED,RED_LED]:
+            GPIO.setup(led, GPIO.OUT)
+            GPIO.output(led, GPIO.LOW)
+
+        msg,success = handle_event(uuid_str, 1)
+        led = GREEN_LED if success else RED_LED
+        print(msg)
+        GPIO.output(led, GPIO.HIGH)  # Turn on LED
+        time.sleep(1)  # Wait 5 Seconds
+        GPIO.output(led, GPIO.LOW)  # Turn off LED
+
         
 

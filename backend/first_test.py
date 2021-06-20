@@ -1,13 +1,17 @@
-from app.utils.users import handle_user
+from app.db.session import SessionLocal
+from app.models import User
+from app.utils.users import handle_event
 
-USER_WITH_BALANCE = 1
-USER_WITHOUT_BALANCE = 2
-USER_NOT_FOUND = 555
-PROVIDER_WITH_BALANCE = 1
+db =SessionLocal()
+u1 = db.query(User).get(1)
+u2 = db.query(User).get(2)
+u3 = db.query(User).get(3)
+u1.rfid_uuid = "78-222-116-43-207"
+u2.rfid_uuid = "7-200-167-181-221"
+u2.is_admin = True
+u3.rfid_uuid = "55-13-225-181-110"
+db.commit()
 
-res1 = handle_user(USER_WITH_BALANCE, PROVIDER_WITH_BALANCE)
-res2 = handle_user(USER_WITHOUT_BALANCE, PROVIDER_WITH_BALANCE)
-res3 = handle_user(USER_NOT_FOUND, PROVIDER_WITH_BALANCE)
-print(res1)
-print(res2)
-print(res3)
+handle_event(u1.rfid_uuid,1)
+handle_event(u2.rfid_uuid,1)
+handle_event(u3.rfid_uuid,1)

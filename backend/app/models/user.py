@@ -12,4 +12,5 @@ class User(Base):
     password = Column(String(32), nullable=False)
     balance = Column(Float, server_default='0', nullable=False)
     is_admin = Column(Boolean, default=False)
-    transactions = relationship('Transaction',backref='user')
+    transactions = relationship('Transaction', backref='user')
+    rfid_uuid = Column(String(255))
