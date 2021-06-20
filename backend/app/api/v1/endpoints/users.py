@@ -1,17 +1,18 @@
 from typing import Any, List
-
 from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
+import sys
+from os import path
 
-from app.api import deps
-from app.models.user import User
+sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+from api import deps
+
 
 router = APIRouter()
 
 
-@router.get("/", response_model=List[User])
+@router.get("/")
 def read_users(
-        db: Session = Depends(deps.get_db)
+        db = Depends(deps.get_db)
 ) -> Any:
     """
     Retrieve users.
@@ -20,10 +21,10 @@ def read_users(
     return users
 
 
-@router.get("/{user_id}", response_model=User)
+@router.get("/{user_id}")
 def read_user_by_id(
         user_id: int,
-        db: Session = Depends(deps.get_db),
+        db = Depends(deps.get_db),
 ) -> Any:
     """
     Get a specific user by id.

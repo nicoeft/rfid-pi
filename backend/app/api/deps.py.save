@@ -1,7 +1,7 @@
 from typing import Generator
 import sys
 from os import path
-sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+th.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 from db.session import SessionLocal
 
 
