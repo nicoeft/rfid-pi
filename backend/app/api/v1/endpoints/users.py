@@ -56,7 +56,7 @@ def read_user_transactions(
 @router.post("/{user_id}/rfid_uuid")
 def set_rfid_uuid(
         user_id: int,
-        rfid_uuid: str = Body(...),
+        rfid_uuid: str = Body(..., embed=True),
         db=Depends(deps.get_db),
 ) -> Any:
     """
