@@ -42,7 +42,7 @@ while continue_reading:
  
     # If we have the UID, continue
     if status == MIFAREReader.MI_OK:
-
+        print("--------------")
         uuid_str = f"{uid[0]}-{uid[1]}-{uid[2]}-{uid[3]}-{uid[4]}"
         # Print UID
         print(f"Card read UID: {uuid_str}")
@@ -60,6 +60,7 @@ while continue_reading:
         led = GREEN_LED
         
         print(msg)
+        print("--------------")
         GPIO.output(led, GPIO.HIGH)  # Turn on LED
         time.sleep(2)  # Wait 2 Seconds
         GPIO.output(led, GPIO.LOW)  # Turn off LED

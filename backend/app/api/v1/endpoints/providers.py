@@ -21,6 +21,19 @@ def read_providers(
     return providers
 
 
+@router.post("/")
+def create_provider(
+        provider: Provider,
+        db = Depends(deps.get_db)
+) -> Any:
+    """
+    Create provider.
+    """
+    db.add(provider)
+    db.commit()
+    return provider
+
+
 @router.get("/{provider_id}")
 def read_provider_by_id(
         provider_id: int,

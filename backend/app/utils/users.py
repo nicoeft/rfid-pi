@@ -19,7 +19,9 @@ def handle_event(rfid_uuid, provider_id) -> (str, bool):
     if not user:
         error_msg = f"User doesn't exist"
         return error_msg, False
+    print(f"User: {user.id}")
     if user.is_admin:
+        print("ADMIN USER")
         provider.balance += provider.payment_amount
         msg = f"Deposited: {provider.payment_amount} - Total is:{provider.balance}"
         session.commit()
