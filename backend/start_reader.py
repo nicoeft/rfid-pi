@@ -22,12 +22,11 @@ signal.signal(signal.SIGINT, end_read)
  
 # Create an object of the class MFRC522
 MIFAREReader = MFRC522()
+
+DEFAULT_PROVIDER_ID = 1
+print("RFID Payment System Demo")
+print("Press Ctrl-C to stop.")
  
-# Welcome message
-print ("Welcome to the MFRC522 data read example")
-print ("Press Ctrl-C to stop.")
- 
-# This loop keeps checking for chips. If one is near it will get the UID and authenticate
 while continue_reading:
     
     # Scan for cards    
@@ -35,8 +34,8 @@ while continue_reading:
  
     # If a card is found
     if status == MIFAREReader.MI_OK:
-        print ("Card detected")
-    
+        print("RFID tag detected")
+
     # Get the UID of the card
     (status,uid) = MIFAREReader.MFRC522_Anticoll()
  
@@ -45,25 +44,13 @@ while continue_reading:
         print("--------------")
         uuid_str = f"{uid[0]}-{uid[1]}-{uid[2]}-{uid[3]}-{uid[4]}"
         # Print UID
-        print(f"Card read UID: {uuid_str}")
+        print(f"Tag read UID: {uuid_str}")
         
         # Select the scanned tag
         MIFAREReader.MFRC522_SelectTag(uid)
-        
-        #Configure LED Output Pin
-        GREEN_LED = 18
-        
-        GPIO.setup(GREEN_LED,GPIO.OUT)
-        GPIO.output(GREEN_LED,GPIO.LOW)
-        
-        msg,success = handle_event(uuid_str, 1)
-        led = GREEN_LED
-        
+        msg,success = handle_event(uuid_str, DEFAULT_PROVIDER_ID)
         print(msg)
         print("--------------")
-        GPIO.output(led, GPIO.HIGH)  # Turn on LED
-        time.sleep(2)  # Wait 2 Seconds
-        GPIO.output(led, GPIO.LOW)  # Turn off LED
 
         
 
