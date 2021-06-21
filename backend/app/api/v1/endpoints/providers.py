@@ -10,12 +10,6 @@ from app.models import Provider, Transaction
 router = APIRouter()
 
 
-class ProviderScheme(BaseModel):
-    name: str
-    balance: Optional[float] = 0
-    payment_amount: Optional[float] = 1
-
-
 @router.get("/")
 def read_providers(
         db=Depends(deps.get_db)
@@ -25,19 +19,6 @@ def read_providers(
     """
     providers = db.query(Provider).all()
     return providers
-
-
-@router.post("/")
-def create_provider(
-        provider: ProviderScheme,
-        db=Depends(deps.get_db)
-) -> Any:
-    """
-    Create provider.
-    """
-    db.add(provider)
-    db.commit()
-    return provider
 
 
 @router.get("/{provider_id}")

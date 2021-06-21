@@ -28,18 +28,6 @@ def read_users(
     return users
 
 
-@router.post("/")
-def create_user(
-        user: UserScheme,
-        db=Depends(deps.get_db)
-) -> Any:
-    """
-    Create user.
-    """
-    db.add(user)
-    db.commit()
-    return user
-
 
 @router.get("/{user_id}")
 def read_user_by_id(
