@@ -59,10 +59,10 @@ def set_rfid_uuid(
     return user
 
 
-@router.post("/{user_id}/deposit")
+@router.post("/{user_id}/deposit/{amount}")
 def deposit(
         user_id: int,
-        amount: int = Body(..., gt=0),
+        amount: int,
         db=Depends(deps.get_db),
 ) -> Any:
     """
@@ -74,10 +74,10 @@ def deposit(
     return user
 
 
-@router.post("/{user_id}/withdraw")
+@router.post("/{user_id}/withdraw/{amount}")
 def withdraw(
         user_id: int,
-        amount: int = Body(..., gt=0),
+        amount: int ,
         db=Depends(deps.get_db),
 ) -> Any:
     """

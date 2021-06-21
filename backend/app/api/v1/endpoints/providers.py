@@ -1,3 +1,4 @@
+import json
 from typing import Any, List
 from fastapi import APIRouter, Depends
 
@@ -42,4 +43,6 @@ def read_provider_transactions(
     Get all provider's transactions
     """
     transactions = db.query(Transaction).filter_by(provider_id=provider_id)
-    return transactions
+    print(transactions)
+    print(json.dumps(transactions))
+    return json.dumps(transactions)
