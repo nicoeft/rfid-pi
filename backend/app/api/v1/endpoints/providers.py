@@ -4,7 +4,6 @@ from fastapi import APIRouter, Depends
 
 from app.api import deps
 from app.models import Provider, Transaction
-from app.models.user import User
 
 
 
@@ -42,7 +41,5 @@ def read_provider_transactions(
     """
     Get all provider's transactions
     """
-    transactions = db.query(Transaction).filter_by(provider_id=provider_id)
-    print(transactions)
-    print(json.dumps(transactions))
-    return json.dumps(transactions)
+    transactions = db.query(Transaction).filter_by(provider_id=provider_id).all()
+    return transactions

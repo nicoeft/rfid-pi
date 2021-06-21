@@ -40,7 +40,7 @@ def read_user_transactions(
     """
     Get all user's transactions
     """
-    transactions = db.query(Transaction).filter_by(user_id=user_id)
+    transactions = db.query(Transaction).filter_by(user_id=user_id).all()
     return transactions
 
 
