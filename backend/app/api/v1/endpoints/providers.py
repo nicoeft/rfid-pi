@@ -41,5 +41,5 @@ def read_provider_transactions(
     """
     Get all provider's transactions
     """
-    providers = db.query(Transaction).find_by(provider_id=provider_id)
-    return providers
+    transactions = db.query(Transaction).filter_by(provider_id=provider_id)
+    return transactions
