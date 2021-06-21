@@ -1,18 +1,24 @@
-import json
-from typing import Any, List
+from typing import Any
+from typing import Optional
+
 from fastapi import APIRouter, Depends
+from pydantic import BaseModel
 
 from app.api import deps
 from app.models import Provider, Transaction
 
-
-
 router = APIRouter()
+
+
+class ProviderScheme(BaseModel):
+    name: str
+    balance: Optional[float] = 0
+    payment_amount: Optional[float] = 1
 
 
 @router.get("/")
 def read_providers(
-        db = Depends(deps.get_db)
+        db=Depends(deps.get_db)
 ) -> Any:
     """
     Retrieve providers.
@@ -23,8 +29,8 @@ def read_providers(
 
 @router.post("/")
 def create_provider(
-        provider: Provider,
-        db = Depends(deps.get_db)
+        provider: ProviderScheme,
+        db=Depends(deps.get_db)
 ) -> Any:
     """
     Create provider.
@@ -37,7 +43,7 @@ def create_provider(
 @router.get("/{provider_id}")
 def read_provider_by_id(
         provider_id: int,
-        db = Depends(deps.get_db),
+        db=Depends(deps.get_db),
 ) -> Any:
     """
     Get a specific provider by id.
@@ -49,7 +55,7 @@ def read_provider_by_id(
 @router.get("/{provider_id}/transactions")
 def read_provider_transactions(
         provider_id: int,
-        db = Depends(deps.get_db),
+        db=Depends(deps.get_db),
 ) -> Any:
     """
     Get all provider's transactions

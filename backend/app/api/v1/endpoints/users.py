@@ -1,12 +1,20 @@
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, Body
+from pydantic import BaseModel
 
 from app.api import deps
 from app.models import Transaction
 from app.models.user import User
 
 router = APIRouter()
+
+
+class UserScheme(BaseModel):
+    username: str
+    password: str
+    balance: Optional[float] = 10
+    rfid_uuid: Optional[str] = None
 
 
 @router.get("/")
@@ -19,10 +27,11 @@ def read_users(
     users = db.query(User).all()
     return users
 
+
 @router.post("/")
 def create_user(
-        user: User,
-        db = Depends(deps.get_db)
+        user: UserScheme,
+        db=Depends(deps.get_db)
 ) -> Any:
     """
     Create user.
@@ -89,7 +98,7 @@ def deposit(
 @router.post("/{user_id}/withdraw/{amount}")
 def withdraw(
         user_id: int,
-        amount: int ,
+        amount: int,
         db=Depends(deps.get_db),
 ) -> Any:
     """
